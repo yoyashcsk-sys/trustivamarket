@@ -1,53 +1,281 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Trustiva Market</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin:0;
-      font-family: Arial, sans-serif;
-      background:#0f0f0f;
-      color:white;
-      text-align:center;
-      padding:50px 20px;
-    }
-    h1 {
-      font-size:40px;
-    }
-    p {
-      font-size:18px;
-      color:#ccc;
-      max-width:600px;
-      margin:20px auto;
-    }
-    .btn {
-      display:inline-block;
-      padding:12px 24px;
-      margin:10px;
-      background:#00ffff;
-      color:black;
-      text-decoration:none;
-      border-radius:8px;
-      font-weight:bold;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trustiva Market | AI-Powered Website Marketplace</title>
+<meta name="description" content="Trustiva Market is an AI-enhanced marketplace to buy and sell verified websites securely with escrow protection and smart valuation insights.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
+
+body{
+  background:#05070d;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* NAVBAR */
+nav{
+  position:fixed;
+  width:100%;
+  padding:20px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(12px);
+  z-index:1000;
+}
+
+nav h2{
+  color:#00ffff;
+}
+
+nav ul{
+  display:flex;
+  list-style:none;
+  gap:30px;
+}
+
+nav a{
+  color:#ccc;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+nav a:hover{
+  color:#00ffff;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  background:url("hero.jpg") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  animation:zoomHero 20s ease-in-out infinite alternate;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(5,7,13,0.95));
+}
+
+.hero-content{
+  position:relative;
+  max-width:800px;
+  padding:20px;
+  animation:fadeUp 1.2s ease forwards;
+}
+
+.hero h1{
+  font-size:52px;
+  font-weight:700;
+  background:linear-gradient(90deg,#00ffff,#a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:20px;
+}
+
+.hero p{
+  color:#ccc;
+  font-size:18px;
+  margin-bottom:30px;
+}
+
+.btn{
+  padding:14px 30px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:600;
+  margin:10px;
+  display:inline-block;
+  transition:0.3s;
+}
+
+.primary{
+  background:linear-gradient(90deg,#00ffff,#a855f7);
+  color:black;
+  box-shadow:0 0 25px #00ffff50;
+}
+
+.primary:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 35px #00ffff;
+}
+
+.secondary{
+  border:1px solid #00ffff;
+  color:#00ffff;
+}
+
+.secondary:hover{
+  background:#00ffff;
+  color:black;
+}
+
+/* SECTIONS */
+section{
+  padding:100px 40px;
+  text-align:center;
+}
+
+.section-title{
+  font-size:36px;
+  margin-bottom:60px;
+}
+
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px);
+  padding:30px;
+  border-radius:15px;
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 25px #00ffff40;
+}
+
+.card h3{
+  margin-bottom:15px;
+  color:#00ffff;
+}
+
+.card p{
+  color:#aaa;
+}
+
+/* CTA */
+.cta{
+  padding:80px 20px;
+  background:linear-gradient(90deg,#00ffff20,#a855f720);
+}
+
+.cta h2{
+  font-size:32px;
+  margin-bottom:20px;
+}
+
+/* FOOTER */
+footer{
+  padding:40px;
+  background:#0a0f1a;
+  color:#777;
+  text-align:center;
+}
+
+/* ANIMATIONS */
+@keyframes zoomHero{
+  from{background-size:100%;}
+  to{background-size:110%;}
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{
+    padding:15px 20px;
+  }
+  nav ul{
+    display:none;
+  }
+  .hero h1{
+    font-size:34px;
+  }
+}
+</style>
 </head>
+
 <body>
 
-<h1>Trustiva Market</h1>
-<p>
-Secure marketplace to buy and sell verified websites.
-Low fees. Protected payments. Fast transfers.
-</p>
+<nav>
+  <h2>Trustiva</h2>
+  <ul>
+    <li><a href="#">Listings</a></li>
+    <li><a href="#">How It Works</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
 
-<a href="#" class="btn">Browse Listings</a>
-<a href="#" class="btn">Sell Your Website</a>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Buy & Sell Websites — Smarter with AI</h1>
+    <p>
+    Trustiva Market is an AI-enhanced digital asset marketplace helping entrepreneurs
+    trade verified websites with smart valuation insights and protected payments.
+    </p>
+    <a href="#" class="btn primary">Browse AI-Verified Listings</a>
+    <a href="#" class="btn secondary">List Your Website Free</a>
+  </div>
+</section>
 
-<p style="margin-top:60px; font-size:14px;">
-Launching Soon.
-</p>
+<section>
+  <h2 class="section-title">How AI Enhances Trustiva</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>AI Valuation Insights</h3>
+      <p>Traffic patterns and revenue consistency are analyzed to suggest fair pricing benchmarks.</p>
+    </div>
+    <div class="card">
+      <h3>Risk Signal Detection</h3>
+      <p>Automated checks assist in identifying suspicious activity or unusual performance spikes.</p>
+    </div>
+    <div class="card">
+      <h3>Smart Buyer Matching</h3>
+      <p>Personalized recommendations based on your niche, budget, and acquisition goals.</p>
+    </div>
+    <div class="card">
+      <h3>Guided Secure Transfers</h3>
+      <p>Structured workflow ensures smooth domain and hosting ownership transfer.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Why Founders Choose Trustiva</h2>
+  <div class="card-grid">
+    <div class="card">✔ AI-Assisted Verification</div>
+    <div class="card">✔ Escrow-Protected Payments</div>
+    <div class="card">✔ Transparent Low Fees</div>
+    <div class="card">✔ Fast Ownership Transfers</div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Let AI Guide Your Next Digital Acquisition</h2>
+  <a href="#" class="btn primary">Get Started Today</a>
+</section>
+
+<footer>
+  © 2026 Trustiva Market. All Rights Reserved.<br>
+  AI-Enhanced Digital Asset Marketplace
+</footer>
 
 </body>
 </html>
