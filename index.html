@@ -1,260 +1,128 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interstellar Web Experience</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<title>Trustiva Market</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:#0B0F1A;
-  color:white;
-  font-family:'Inter',sans-serif;
-  overflow-x:hidden;
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #0B0F1A;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
 }
-canvas{
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
-section{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:40px;
+
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
 }
-h1,h2{
-  font-family:'Orbitron';
+
+h1 {
+  font-size: 3rem;
+  background: linear-gradient(90deg, #00f0ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.hero h1{
-  font-size:60px;
-  background:linear-gradient(90deg,#00F5FF,#A855F7);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+
+p {
+  opacity: 0.7;
+  margin-bottom: 40px;
 }
-.hero p{
-  margin-top:20px;
-  color:#ccc;
+
+button {
+  padding: 18px 50px;
+  border-radius: 40px;
+  border: none;
+  font-size: 18px;
+  background: linear-gradient(90deg, #00f0ff, #a855f7);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 20px #00f0ff;
+  transition: 0.3s;
 }
-.btn{
-  margin-top:40px;
-  padding:15px 40px;
-  border-radius:40px;
-  background:linear-gradient(90deg,#00F5FF,#A855F7);
-  color:black;
-  font-weight:700;
-  cursor:pointer;
-  transition:.3s;
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px #a855f7;
 }
-.btn:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 40px #00F5FF;
-}
-.dark{
-  background:rgba(0,0,0,0.5);
-  backdrop-filter:blur(8px);
+
+.rocket {
+  font-size: 60px;
+  margin-bottom: 20px;
+  transition: transform 1s ease-in-out;
 }
 </style>
 </head>
+
 <body>
 
-<canvas id="space"></canvas>
+<canvas id="stars"></canvas>
 
 <section class="hero">
-  <div>
-    <h1>Your Business Deserves the Universe</h1>
-    <p>We build high-performance websites that dominate digital space.</p>
-    <div class="btn">🚀 Launch Mission</div>
-  </div>
-</section>
-
-<section class="dark">
-  <h2>Lost in Digital Space?</h2>
-</section>
-
-<section>
-  <h2>Mission Control Activated</h2>
-</section>
-
-<section class="dark">
-  <h2>Galaxy of Successful Launches</h2>
-</section>
-
-<section>
-  <h2>Ready For Liftoff?</h2>
+  <div class="rocket" id="rocket">🚀</div>
+  <h1>Your Business Deserves the Universe</h1>
+  <p>We build high-performance websites that dominate digital space.</p>
+  <button onclick="launch()">Launch Mission</button>
 </section>
 
 <script>
-gsap.registerPlugin(ScrollTrigger);
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
 
-const canvas = document.getElementById("space");
-const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x0B0F1A, 0.002);
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 3000);
-const renderer = new THREE.WebGLRenderer({canvas, alpha:true});
-renderer.setSize(window.innerWidth, window.innerHeight);
+let stars = [];
 
-// Post Processing Bloom
-const composer = new THREE.EffectComposer(renderer);
-composer.addPass(new THREE.RenderPass(scene, camera));
-const bloomPass = new THREE.UnrealBloomPass(
-  new THREE.Vector2(window.innerWidth, window.innerHeight),
-  1.2,
-  0.4,
-  0.85
-);
-composer.addPass(bloomPass);
-
-// STARFIELD
-const starsGeo = new THREE.BufferGeometry();
-const starVertices = [];
-for (let i = 0; i < 25000; i++) {
-  starVertices.push(
-    THREE.MathUtils.randFloatSpread(4000),
-    THREE.MathUtils.randFloatSpread(4000),
-    THREE.MathUtils.randFloatSpread(4000)
-  );
-}
-starsGeo.setAttribute("position", new THREE.Float32BufferAttribute(starVertices, 3));
-const stars = new THREE.Points(starsGeo, new THREE.PointsMaterial({color:0xffffff}));
-scene.add(stars);
-
-// ROCKET
-const rocket = new THREE.Group();
-
-const body = new THREE.Mesh(
-  new THREE.CylinderGeometry(0.5,0.5,3,32),
-  new THREE.MeshStandardMaterial({color:0xffffff})
-);
-rocket.add(body);
-
-const nose = new THREE.Mesh(
-  new THREE.ConeGeometry(0.5,1,32),
-  new THREE.MeshStandardMaterial({color:0xff0000})
-);
-nose.position.y = 2;
-rocket.add(nose);
-
-const engine = new THREE.Mesh(
-  new THREE.ConeGeometry(0.3,1,32),
-  new THREE.MeshBasicMaterial({color:0x00ffff})
-);
-engine.position.y = -2;
-engine.rotation.x = Math.PI;
-rocket.add(engine);
-
-// Exhaust Particles
-const exhaustGeo = new THREE.BufferGeometry();
-const exhaustVertices = [];
-for (let i = 0; i < 2000; i++) {
-  exhaustVertices.push(
-    (Math.random()-0.5)*0.5,
-    -2 - Math.random()*5,
-    (Math.random()-0.5)*0.5
-  );
-}
-exhaustGeo.setAttribute("position", new THREE.Float32BufferAttribute(exhaustVertices,3));
-const exhaust = new THREE.Points(exhaustGeo, new THREE.PointsMaterial({
-  color:0x00ffff,
-  size:0.05
-}));
-rocket.add(exhaust);
-
-scene.add(rocket);
-
-// ORBITING PLANETS
-const planets=[];
-for(let i=0;i<4;i++){
-  const planet=new THREE.Mesh(
-    new THREE.SphereGeometry(0.6,32,32),
-    new THREE.MeshStandardMaterial({color:0xA855F7})
-  );
-  planets.push(planet);
-  scene.add(planet);
-}
-
-const light = new THREE.PointLight(0xffffff,1);
-light.position.set(10,10,10);
-scene.add(light);
-
-camera.position.set(0,0,15);
-
-// Mouse Parallax
-document.addEventListener("mousemove",(e)=>{
-  const x = (e.clientX/window.innerWidth - 0.5) * 2;
-  const y = (e.clientY/window.innerHeight - 0.5) * 2;
-  gsap.to(rocket.rotation,{
-    x:y*0.3,
-    y:x*0.5,
-    duration:0.5
+for (let i = 0; i < 150; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2,
+    speed: Math.random() * 0.5
   });
-});
+}
 
-// Scroll Cinematic Camera
-gsap.to(camera.position,{
-  z:-100,
-  y:20,
-  scrollTrigger:{
-    trigger:"body",
-    start:"top top",
-    end:"bottom bottom",
-    scrub:true
-  }
-});
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "white";
 
-// Rocket Launch
-document.querySelector(".btn").addEventListener("click",()=>{
-  gsap.to(rocket.position,{
-    y:120,
-    duration:4,
-    ease:"power4.in"
-  });
-});
+  stars.forEach(star => {
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+    ctx.fill();
 
-// Engine Pulse
-gsap.to(engine.scale,{
-  y:2,
-  repeat:-1,
-  yoyo:true,
-  duration:0.2
-});
+    star.y += star.speed;
 
-function animate(){
-  requestAnimationFrame(animate);
-  stars.rotation.y += 0.0008;
-  rocket.rotation.y += 0.01;
-  exhaust.rotation.y += 0.02;
-
-  planets.forEach((p,i)=>{
-    p.position.x=8*Math.cos(Date.now()*0.001+i);
-    p.position.z=8*Math.sin(Date.now()*0.001+i);
+    if (star.y > canvas.height) {
+      star.y = 0;
+      star.x = Math.random() * canvas.width;
+    }
   });
 
-  composer.render();
+  requestAnimationFrame(drawStars);
 }
-animate();
 
-window.addEventListener("resize",()=>{
-  camera.aspect = window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  composer.setSize(window.innerWidth, window.innerHeight);
-});
+drawStars();
+
+function launch() {
+  const rocket = document.getElementById("rocket");
+  rocket.style.transform = "translateY(-400px)";
+}
 </script>
 
 </body>
