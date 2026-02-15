@@ -1,235 +1,237 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trustiva</title>
+<title>Trustiva Market</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-html,body{
-  height:100%;
-  font-family:system-ui,-apple-system,sans-serif;
-  background:black;
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#000;
   overflow-x:hidden;
-  scroll-behavior:smooth;
+  color:white;
 }
 
-/* ===== Base Section ===== */
-
-.section{
-  position:relative;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
-}
-
-/* ===== Optimized Video ===== */
-
-.video-bg{
-  position:absolute;
+/* VIDEO BACKGROUND */
+video{
+  position:fixed;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
   object-fit:cover;
   z-index:-2;
-  transform:translateZ(0);
 }
 
-/* Overlay */
+/* DARK OVERLAY */
 .overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.6);
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:radial-gradient(circle at center, rgba(0,0,0,0.2), #000 80%);
   z-index:-1;
 }
 
-/* ===== Text Animation ===== */
-
-.reveal{
-  opacity:0;
-  transform:translateY(30px);
-  transition:opacity 0.9s ease, transform 0.9s ease;
+/* STAR PARTICLES */
+.stars{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:url("https://www.transparenttextures.com/patterns/stardust.png");
+  animation:moveStars 60s linear infinite;
+  z-index:-1;
+  opacity:0.4;
 }
 
-.reveal.show{
-  opacity:1;
-  transform:translateY(0);
+@keyframes moveStars{
+  from{background-position:0 0;}
+  to{background-position:0 1000px;}
 }
 
-h1,h2{
-  background:linear-gradient(90deg,#00f0ff,#a855f7);
+/* HERO SECTION */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.hero h1{
+  font-size:clamp(2rem,6vw,4rem);
+  background:linear-gradient(90deg,#00f2ff,#a855f7);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  text-shadow:0 0 25px #00f0ff;
+  text-shadow:0 0 30px rgba(0,255,255,0.6);
+  animation:fadeUp 1.5s ease forwards;
 }
 
-h1{font-size:clamp(32px,5vw,60px);}
-h2{font-size:clamp(28px,4vw,45px);}
-
-p{
+.hero p{
   margin-top:20px;
-  color:#ccc;
+  font-size:1.2rem;
+  opacity:0.8;
+  animation:fadeUp 2s ease forwards;
 }
 
-button{
-  margin-top:40px;
-  padding:15px 50px;
+/* BUTTON */
+.cta{
+  margin-top:30px;
+  padding:15px 40px;
   border:none;
   border-radius:50px;
-  font-size:16px;
-  background:linear-gradient(90deg,#00f0ff,#a855f7);
+  background:linear-gradient(90deg,#00f2ff,#a855f7);
   color:white;
+  font-size:1.1rem;
   cursor:pointer;
-  transition:transform .3s ease;
+  box-shadow:0 0 40px rgba(0,255,255,0.6);
+  transition:0.3s;
 }
 
-button:hover{
-  transform:scale(1.05);
+.cta:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 60px rgba(0,255,255,0.9);
 }
 
-/* ===== Parallax Layer ===== */
-
-.parallax{
-  transform:translateZ(0);
-  will-change:transform;
-}
-
-/* ===== Rocket ===== */
-
+/* ROCKET */
 .rocket{
   position:absolute;
-  bottom:60px;
-  width:180px;
-  transition:transform 2.5s cubic-bezier(.4,0,.2,1);
-  will-change:transform;
+  bottom:40px;
+  width:120px;
+  animation:floatRocket 4s ease-in-out infinite;
 }
 
-.launch{
-  transform:translateY(-140vh);
+@keyframes floatRocket{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-20px);}
+  100%{transform:translateY(0);}
 }
 
-/* ===== Black Section ===== */
-
-.black{
-  background:black;
+/* SECTION STYLING */
+section{
+  padding:100px 20px;
+  text-align:center;
 }
 
-/* ===== Smooth Fade Between Sections ===== */
-
-.fade-section{
-  opacity:0;
-  transform:translateY(40px);
-  transition:all 1s ease;
+.section-title{
+  font-size:2rem;
+  margin-bottom:40px;
+  background:linear-gradient(90deg,#00f2ff,#a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.fade-section.visible{
-  opacity:1;
-  transform:translateY(0);
+/* CARD GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+  max-width:1000px;
+  margin:auto;
 }
 
-@media(max-width:768px){
-  .rocket{width:130px}
+.card{
+  background:rgba(255,255,255,0.05);
+  padding:30px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 30px rgba(0,255,255,0.5);
+}
+
+/* FADE ANIMATION */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* FOOTER */
+footer{
+  padding:40px;
+  text-align:center;
+  opacity:0.6;
 }
 </style>
 </head>
 
 <body>
 
+<!-- VIDEO -->
+<video autoplay muted loop playsinline preload="auto">
+  <source src="space-video.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+<div class="stars"></div>
+
 <!-- HERO -->
-<section class="section">
-
-  <video class="video-bg parallax" autoplay muted loop playsinline>
-    <source src="space-video.mp4" type="video/mp4">
-  </video>
-
-  <div class="overlay"></div>
-
-  <div class="reveal" id="heroText">
-    <h1>Your Business Deserves The Universe</h1>
-    <p>Speed. Power. Precision.</p>
-    <button onclick="scrollNext()">Enter Mission</button>
-  </div>
-
-  <img src="rocket.png" class="rocket" id="rocket">
-
+<section class="hero">
+  <h1>Your Business Deserves The Universe</h1>
+  <p>Speed. Power. Precision.</p>
+  <button class="cta">🚀 Enter Mission</button>
+  <img src="rocket.png" class="rocket">
 </section>
 
-<!-- DRAMATIC TEXT -->
-<section class="section black">
-  <div class="fade-section">
-    <h2>Not Just A Website.</h2>
-  </div>
-</section>
-
-<section class="section black">
-  <div class="fade-section">
-    <h2>A Digital Launchpad.</h2>
-  </div>
-</section>
-
-<!-- COUNTDOWN -->
-<section class="section black">
-  <div>
-    <div id="count" style="font-size:80px;">3</div>
-    <button onclick="launch()">Launch</button>
+<!-- SERVICES -->
+<section>
+  <h2 class="section-title">Mission Control</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Frontend Planet</h3>
+      <p>Stunning UI with smooth animations.</p>
+    </div>
+    <div class="card">
+      <h3>Backend Planet</h3>
+      <p>Secure, scalable server architecture.</p>
+    </div>
+    <div class="card">
+      <h3>E-commerce Galaxy</h3>
+      <p>Payment gateways & conversion optimization.</p>
+    </div>
+    <div class="card">
+      <h3>SEO Engine Core</h3>
+      <p>Rank higher. Dominate search results.</p>
+    </div>
   </div>
 </section>
 
-<script>
+<!-- PRICING -->
+<section>
+  <h2 class="section-title">Choose Your Rocket</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Starter Rocket</h3>
+      <p>₹9,999</p>
+    </div>
+    <div class="card">
+      <h3>Growth Rocket</h3>
+      <p>₹24,999</p>
+    </div>
+    <div class="card">
+      <h3>Enterprise Rocket</h3>
+      <p>Custom Pricing</p>
+    </div>
+  </div>
+</section>
 
-/* Reveal Hero Immediately */
-document.getElementById("heroText").classList.add("show");
-
-/* Smooth Scroll */
-function scrollNext(){
-  window.scrollBy({top:window.innerHeight,behavior:"smooth"});
-}
-
-/* Launch */
-function launch(){
-  let count=3;
-  const el=document.getElementById("count");
-  const rocket=document.getElementById("rocket");
-
-  let interval=setInterval(()=>{
-    count--;
-    if(count===0){
-      el.innerText="🚀";
-      rocket.classList.add("launch");
-      clearInterval(interval);
-    }else{
-      el.innerText=count;
-    }
-  },1000);
-}
-
-/* Section Fade Observer */
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("visible");
-    }
-  });
-},{threshold:0.4});
-
-document.querySelectorAll(".fade-section").forEach(el=>{
-  observer.observe(el);
-});
-
-/* Lightweight Parallax */
-document.addEventListener("mousemove",(e)=>{
-  const video=document.querySelector(".parallax");
-  let x=(e.clientX/window.innerWidth -0.5)*10;
-  let y=(e.clientY/window.innerHeight -0.5)*10;
-  video.style.transform=`translate(${x}px,${y}px) scale(1.05)`;
-});
-
-</script>
+<footer>
+  © 2026 Trustiva Market. All Rights Reserved.
+</footer>
 
 </body>
 </html>
