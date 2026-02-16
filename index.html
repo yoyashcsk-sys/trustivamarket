@@ -4,236 +4,212 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trustiva Market</title>
+<title>Trustiva — Digital Command</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#000;color:white;overflow-x:hidden;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
+body{background:#000;color:#fff;overflow-x:hidden}
 
-/* NAVBAR */
+/* NAV */
 .navbar{
 position:fixed;top:0;width:100%;
-display:flex;justify-content:space-between;align-items:center;
-padding:20px 40px;background:rgba(0,0,0,0.4);
-backdrop-filter:blur(10px);z-index:100;
+display:flex;justify-content:space-between;
+padding:25px 60px;z-index:100;
 }
-.nav-logo{font-weight:600;letter-spacing:3px;}
-.nav-links{display:flex;gap:30px;font-size:13px;letter-spacing:2px;}
-.nav-links a{color:white;text-decoration:none;opacity:0.7;}
-.nav-links a:hover{opacity:1;}
+.nav-links{display:flex;gap:30px;font-size:12px;}
+.nav-links a{color:#fff;text-decoration:none;opacity:0.6}
+.nav-links a:hover{opacity:1}
 
 /* HERO */
 .hero{
-height:100vh;display:flex;justify-content:center;align-items:center;
-text-align:center;background:url("space.jpg") center/cover no-repeat;
-position:relative;overflow:hidden;
+position:relative;height:100vh;
+display:flex;justify-content:center;align-items:center;
+overflow:hidden;
 }
-.overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0.95));}
-.hero-content{position:relative;z-index:5;max-width:900px;padding:20px;}
 
-.scramble{font-size:clamp(32px,6vw,70px);letter-spacing:6px;}
-.subtitle{margin-top:20px;opacity:0;letter-spacing:3px;font-size:14px;}
+#space{
+position:absolute;inset:0;z-index:1;
+}
+
+.hero-center{
+position:relative;z-index:5;text-align:center;
+}
+
+.headline{font-size:70px;letter-spacing:5px;}
+.subtitle{margin-top:20px;opacity:0.7}
 .cta{
-margin-top:40px;padding:15px 40px;border-radius:50px;border:none;
-background:linear-gradient(90deg,#00f2ff,#8a2be2);
-color:white;font-size:16px;cursor:pointer;opacity:0;transform:scale(0.8);
+margin-top:40px;padding:12px 35px;
+border:1px solid #fff;background:transparent;color:#fff;
+cursor:pointer;
 }
 
 /* SHIPS */
-.ship{position:absolute;width:260px;opacity:0;z-index:2;}
-.ship-left{left:-400px;bottom:18%;}
-.ship-right{right:-400px;top:22%;}
+.ship{position:absolute;width:250px;z-index:4;}
+.ship-left{left:10%;bottom:15%;}
+.ship-right{right:10%;top:20%;}
+
+/* CURSOR */
+#cursorGlow{
+position:fixed;width:200px;height:200px;
+border-radius:50%;
+background:radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
+pointer-events:none;
+z-index:200;
+transform:translate(-50%,-50%);
+}
+
+/* WARP */
+#warp{
+position:fixed;inset:0;background:black;
+z-index:999;opacity:0;
+}
 
 /* SECTIONS */
-section{padding:120px 10%;text-align:center;}
-section h2{
-font-size:36px;margin-bottom:20px;
-background:linear-gradient(90deg,#00f2ff,#8a2be2);
--webkit-background-clip:text;color:transparent;
-}
-section p{max-width:700px;margin:0 auto 40px;opacity:0.8;line-height:1.6;}
-
-.cards{
-display:flex;flex-wrap:wrap;justify-content:center;gap:40px;
-}
-.card{
+section{padding:120px 10%;text-align:center}
+.cards,.pricing{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;margin-top:40px}
+.card,.price-card{
 background:rgba(255,255,255,0.05);
-padding:40px;border-radius:20px;width:260px;
-backdrop-filter:blur(10px);
-transition:0.4s;
-}
-.card:hover{
-transform:translateY(-15px);
-box-shadow:0 0 40px rgba(0,255,255,0.5);
+padding:30px;border-radius:10px;width:250px;
 }
 
-.pricing{
-display:flex;flex-wrap:wrap;justify-content:center;gap:40px;
-}
-.price-card{
-background:rgba(255,255,255,0.05);
-padding:40px;border-radius:20px;width:260px;
-transition:0.4s;
-}
-.price-card:hover{
-transform:scale(1.05);
-box-shadow:0 0 50px rgba(138,43,226,0.5);
-}
-
-footer{
-padding:60px;text-align:center;opacity:0.5;
-}
-
-@media(max-width:768px){
-.ship{width:140px;}
-.navbar{padding:15px 20px;}
-}
+footer{padding:60px;text-align:center;opacity:0.6}
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<div id="warp"></div>
+<div id="cursorGlow"></div>
+
+<!-- NAV -->
 <div class="navbar">
-<div class="nav-logo">TRUSTIVA</div>
+<div>TRUSTIVA</div>
 <div class="nav-links">
-<a href="#">MISSION</a>
-<a href="#">SERVICES</a>
-<a href="#">PROJECTS</a>
-<a href="#">CONTACT</a>
+<a href="#">Mission</a>
+<a href="#">Services</a>
+<a href="#">Projects</a>
+<a href="#">Pricing</a>
 </div>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-<div class="overlay"></div>
+
+<canvas id="space"></canvas>
 
 <img src="ship-left.png" class="ship ship-left" id="shipLeft">
 <img src="ship-right.png" class="ship ship-right" id="shipRight">
 
-<div class="hero-content">
-<div class="scramble" id="scrambleText">8392JKD92K</div>
-<div class="subtitle" id="subtitle">
-ENGINEERED FOR DIGITAL DOMINANCE
-</div>
-<button class="cta" id="ctaBtn">BEGIN THE MISSION</button>
-</div>
+<div class="hero-center">
+<h1 id="headline">YOUR DIGITAL UNIVERSE</h1>
+<p id="subtitle">ENGINEERED FOR DIGITAL DOMINANCE</p>
+<button class="cta" id="ctaBtn">BEGIN MISSION</button>
 </div>
 
-<!-- PROBLEM -->
+</div>
+
+<!-- CONTENT -->
 <section>
-<h2>Most Businesses Drift in Digital Darkness.</h2>
-<p>
-Slow websites. Outdated design. No SEO visibility. No scalability.
-If your digital presence doesn’t evolve, your competition will.
-</p>
+<h2>Who We Are</h2>
+<p>We build high-performance digital systems powered by AI and scalable architecture.</p>
 </section>
 
-<!-- SERVICES -->
 <section>
 <h2>Mission Control</h2>
-<p>Full Stack Architecture. AI Integration. SEO Engines. E-Commerce Systems.</p>
-
 <div class="cards">
 <div class="card">Frontend Engineering</div>
-<div class="card">Backend Architecture</div>
+<div class="card">Backend Systems</div>
 <div class="card">AI Integration</div>
-<div class="card">SEO Optimization</div>
+<div class="card">SEO Engine</div>
 </div>
 </section>
 
-<!-- PORTFOLIO -->
 <section>
-<h2>Launched Into Orbit</h2>
-<p>We don't build websites. We launch digital spacecraft.</p>
-
-<div class="cards">
-<div class="card">Clothing Brand Store</div>
-<div class="card">Electronics Platform</div>
-<div class="card">Luxury Cosmetic Store</div>
-</div>
-</section>
-
-<!-- PRICING -->
-<section>
-<h2>Choose Your Launch Vehicle</h2>
-
+<h2>Pricing</h2>
 <div class="pricing">
-<div class="price-card">
-<h3>Starter Rocket</h3>
-<p>Perfect for new businesses entering orbit.</p>
-</div>
-
-<div class="price-card">
-<h3>Growth Rocket</h3>
-<p>Advanced systems built for scaling brands.</p>
-</div>
-
-<div class="price-card">
-<h3>Enterprise Fleet</h3>
-<p>Full digital dominance strategy.</p>
-</div>
+<div class="price-card">Starter</div>
+<div class="price-card">Growth</div>
+<div class="price-card">Enterprise</div>
 </div>
 </section>
 
-<!-- FINAL CTA -->
-<section>
-<h2>Ready For Liftoff?</h2>
-<p>Your digital universe begins today.</p>
-<button class="cta">🚀 START THE MISSION</button>
-</section>
-
-<footer>
-© 2026 Trustiva Market — Built With Interstellar Precision.
-</footer>
+<footer>© 2026 Trustiva</footer>
 
 <script>
-gsap.registerPlugin(ScrollTrigger);
 
-/* SCRAMBLE EFFECT */
-const finalText="YOUR DIGITAL UNIVERSE";
-const scrambleEl=document.getElementById("scrambleText");
-let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-let iteration=0;
+/* STARFIELD */
+const canvas = document.getElementById("space");
+const ctx = canvas.getContext("2d");
 
-let interval=setInterval(()=>{
-scrambleEl.innerText=finalText.split("")
-.map((letter,index)=>{
-if(index<iteration){return finalText[index];}
-return chars[Math.floor(Math.random()*chars.length)];
-}).join("");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
-if(iteration>=finalText.length){
-clearInterval(interval);
-gsap.to("#subtitle",{opacity:1,duration:1});
-gsap.to("#ctaBtn",{opacity:1,scale:1,duration:1,delay:0.3,ease:"back.out(1.7)"});
-}
-iteration+=0.5;
-},40);
+let stars=[];
 
-/* SHIP ENTRY */
-gsap.to("#shipLeft",{x:450,opacity:1,duration:3,ease:"power3.out"});
-gsap.to("#shipRight",{x:-450,opacity:1,duration:3,delay:0.4,ease:"power3.out"});
-
-/* FLOATING */
-gsap.to("#shipLeft",{y:20,duration:3,repeat:-1,yoyo:true,ease:"sine.inOut"});
-gsap.to("#shipRight",{y:-20,duration:3,repeat:-1,yoyo:true,ease:"sine.inOut"});
-
-/* SCROLL ANIMATIONS */
-gsap.utils.toArray("section").forEach(section=>{
-gsap.from(section,{
-opacity:0,
-y:80,
-duration:1.2,
-scrollTrigger:{
-trigger:section,
-start:"top 80%"
-}
+for(let i=0;i<600;i++){
+stars.push({
+x:(Math.random()-0.5)*canvas.width,
+y:(Math.random()-0.5)*canvas.height,
+z:Math.random()*canvas.width
 });
+}
+
+function animate(){
+ctx.fillStyle="black";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+stars.forEach(star=>{
+star.z -= 3;
+if(star.z<=0) star.z=canvas.width;
+
+let k=128/star.z;
+let x=star.x*k+canvas.width/2;
+let y=star.y*k+canvas.height/2;
+
+let size=(1-star.z/canvas.width)*4;
+ctx.fillRect(x,y,size,size);
 });
+
+requestAnimationFrame(animate);
+}
+animate();
+
+/* SHIPS */
+gsap.fromTo("#shipLeft",
+{opacity:0,x:-800,y:300,scale:0.4},
+{opacity:1,x:0,y:0,scale:1,duration:5}
+);
+
+gsap.fromTo("#shipRight",
+{opacity:0,x:800,y:-300,scale:0.4},
+{opacity:1,x:0,y:0,scale:1,duration:5,delay:0.5}
+);
+
+/* FLOAT */
+gsap.to("#shipLeft",{y:20,repeat:-1,yoyo:true,duration:5});
+gsap.to("#shipRight",{y:-20,repeat:-1,yoyo:true,duration:5});
+
+/* CURSOR */
+document.addEventListener("mousemove",(e)=>{
+gsap.to("#cursorGlow",{x:e.clientX,y:e.clientY,duration:0.2});
+});
+
+/* INTRO */
+gsap.from("#headline",{opacity:0,y:40,duration:1.5});
+gsap.from("#subtitle",{opacity:0,duration:1,delay:0.5});
+gsap.from("#ctaBtn",{opacity:0,duration:1,delay:1});
+
+/* WARP */
+document.getElementById("ctaBtn").addEventListener("click",()=>{
+gsap.to("#warp",{opacity:1,duration:0.3});
+gsap.to(stars,{z:0,duration:1});
+gsap.to("#space",{scale:2,duration:1});
+gsap.to("body",{opacity:0,duration:1,delay:0.5});
+});
+
 </script>
 
 </body>
