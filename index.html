@@ -4,212 +4,348 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trustiva — Digital Command</title>
+<title>TrustivaMarket</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
-body{background:#000;color:#fff;overflow-x:hidden}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;color:#fff;font-family:system-ui,-apple-system,sans-serif;overflow-x:hidden}
 
-/* NAV */
+/* ================= NAVIGATION ================= */
+
 .navbar{
-position:fixed;top:0;width:100%;
-display:flex;justify-content:space-between;
-padding:25px 60px;z-index:100;
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:25px 60px;
+z-index:1000;
+background:linear-gradient(to bottom,rgba(0,0,0,0.8),transparent);
 }
-.nav-links{display:flex;gap:30px;font-size:12px;}
-.nav-links a{color:#fff;text-decoration:none;opacity:0.6}
-.nav-links a:hover{opacity:1}
 
-/* HERO */
+.nav-left,.nav-right{
+display:flex;
+gap:40px;
+font-size:12px;
+letter-spacing:3px;
+}
+
+.nav-left a,.nav-right a{
+text-decoration:none;
+color:white;
+opacity:0.7;
+transition:0.3s;
+}
+
+.nav-left a:hover,.nav-right a:hover{opacity:1}
+
+.logo{
+font-size:28px;
+letter-spacing:6px;
+font-weight:600;
+}
+
+/* ================= HERO ================= */
+
 .hero{
-position:relative;height:100vh;
-display:flex;justify-content:center;align-items:center;
+position:relative;
+height:100vh;
+background:url("space.jpg") center/cover no-repeat;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
 overflow:hidden;
 }
 
-#space{
-position:absolute;inset:0;z-index:1;
+.hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at center,rgba(0,0,0,0.2),rgba(0,0,0,0.8));
 }
 
-.hero-center{
-position:relative;z-index:5;text-align:center;
+.hero-content{
+position:relative;
+z-index:10;
+max-width:900px;
+padding:20px;
 }
 
-.headline{font-size:70px;letter-spacing:5px;}
-.subtitle{margin-top:20px;opacity:0.7}
+.data-strip{
+font-size:13px;
+letter-spacing:4px;
+opacity:0.7;
+margin-bottom:25px;
+}
+
+.main-title{
+font-size:clamp(40px,6vw,80px);
+letter-spacing:4px;
+margin-bottom:20px;
+}
+
+.subtext{
+opacity:0.8;
+margin-top:10px;
+}
+
 .cta{
-margin-top:40px;padding:12px 35px;
-border:1px solid #fff;background:transparent;color:#fff;
+margin-top:35px;
+padding:14px 40px;
+background:#fff;
+color:#000;
+border:none;
+font-size:13px;
+letter-spacing:2px;
 cursor:pointer;
+transition:0.3s;
 }
 
-/* SHIPS */
-.ship{position:absolute;width:250px;z-index:4;}
-.ship-left{left:10%;bottom:15%;}
-.ship-right{right:10%;top:20%;}
+.cta:hover{background:#ddd}
 
-/* CURSOR */
-#cursorGlow{
-position:fixed;width:200px;height:200px;
-border-radius:50%;
-background:radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
-pointer-events:none;
-z-index:200;
-transform:translate(-50%,-50%);
+/* ================= SHIPS ================= */
+
+.ship-left,
+.ship-right{
+position:absolute;
+width:420px;
+opacity:0;
+z-index:5;
+will-change:transform;
 }
 
-/* WARP */
-#warp{
-position:fixed;inset:0;background:black;
-z-index:999;opacity:0;
+.ship-left{
+left:-450px;
+bottom:-250px;
+transform:scale(0.3) rotate(18deg);
 }
 
-/* SECTIONS */
-section{padding:120px 10%;text-align:center}
-.cards,.pricing{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;margin-top:40px}
-.card,.price-card{
+.ship-right{
+right:-450px;
+top:-250px;
+transform:scale(0.3) rotate(-18deg);
+}
+
+/* ================= SECTIONS ================= */
+
+section{
+padding:140px 10%;
+text-align:center;
+}
+
+section h2{
+font-size:34px;
+letter-spacing:3px;
+margin-bottom:25px;
+}
+
+section p{
+max-width:750px;
+margin:auto;
+opacity:0.7;
+line-height:1.7;
+}
+
+.features{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:40px;
+margin-top:60px;
+}
+
+.card{
 background:rgba(255,255,255,0.05);
-padding:30px;border-radius:10px;width:250px;
+padding:40px;
+width:260px;
+border-radius:10px;
+transition:0.4s;
 }
 
-footer{padding:60px;text-align:center;opacity:0.6}
+.card:hover{
+transform:translateY(-10px);
+background:rgba(255,255,255,0.08);
+}
+
+footer{
+padding:80px;
+text-align:center;
+background:#050505;
+opacity:0.6;
+}
+
+@media(max-width:768px){
+.nav-left,.nav-right{display:none}
+.ship-left,.ship-right{width:200px}
+}
 </style>
 </head>
 
 <body>
 
-<div id="warp"></div>
-<div id="cursorGlow"></div>
-
-<!-- NAV -->
+<!-- NAVIGATION -->
 <div class="navbar">
-<div>TRUSTIVA</div>
-<div class="nav-links">
-<a href="#">Mission</a>
-<a href="#">Services</a>
-<a href="#">Projects</a>
-<a href="#">Pricing</a>
+<div class="nav-left">
+<a href="#">BROWSE</a>
+<a href="#">HOW IT WORKS</a>
+<a href="#">SELLERS</a>
+<a href="#">PRICING</a>
+</div>
+
+<div class="logo">TRUSTIVA</div>
+
+<div class="nav-right">
+<a href="#">SIGN IN</a>
+<a href="#">LIST WEBSITE</a>
 </div>
 </div>
 
 <!-- HERO -->
-<div class="hero">
+<section class="hero">
 
-<canvas id="space"></canvas>
+<img src="shift-left.png" class="ship-left">
+<img src="shift-right.png" class="ship-right">
 
-<img src="ship-left.png" class="ship ship-left" id="shipLeft">
-<img src="ship-right.png" class="ship ship-right" id="shipRight">
+<div class="hero-content">
+<div class="data-strip" id="scramble">INITIALIZING MARKETPLACE...</div>
 
-<div class="hero-center">
-<h1 id="headline">YOUR DIGITAL UNIVERSE</h1>
-<p id="subtitle">ENGINEERED FOR DIGITAL DOMINANCE</p>
-<button class="cta" id="ctaBtn">BEGIN MISSION</button>
+<div class="main-title">
+Buy & Sell Digital Businesses
 </div>
 
+<div class="subtext">
+AI-powered marketplace for verified revenue-generating online assets.
 </div>
 
-<!-- CONTENT -->
-<section>
-<h2>Who We Are</h2>
-<p>We build high-performance digital systems powered by AI and scalable architecture.</p>
+<button class="cta">BROWSE LISTINGS</button>
+</div>
+
 </section>
 
+<!-- TRUST STRIP -->
 <section>
-<h2>Mission Control</h2>
-<div class="cards">
-<div class="card">Frontend Engineering</div>
-<div class="card">Backend Systems</div>
-<div class="card">AI Integration</div>
-<div class="card">SEO Engine</div>
+<h2>Secure. Verified. Scalable.</h2>
+<p>
+Escrow protection, AI valuation engine, fraud detection and smooth ownership transfers — 
+built for serious founders and investors.
+</p>
+</section>
+
+<!-- FEATURES -->
+<section>
+<h2>Why Trustiva</h2>
+
+<div class="features">
+<div class="card">🔒 Secure Escrow Protection</div>
+<div class="card">📊 Verified Revenue Metrics</div>
+<div class="card">🤖 AI-Powered Valuation</div>
+<div class="card">⚡ Fast Asset Transfers</div>
 </div>
 </section>
 
+<!-- HOW IT WORKS -->
 <section>
-<h2>Pricing</h2>
-<div class="pricing">
-<div class="price-card">Starter</div>
-<div class="price-card">Growth</div>
-<div class="price-card">Enterprise</div>
-</div>
+<h2>How It Works</h2>
+<p>
+Browse verified listings, complete secure payment through escrow,
+and receive full digital ownership transfer with support.
+</p>
 </section>
 
-<footer>© 2026 Trustiva</footer>
+<!-- FINAL CTA -->
+<section>
+<h2>Ready To Launch?</h2>
+<p>Your next digital asset is waiting in the universe.</p>
+<button class="cta">START YOUR MISSION</button>
+</section>
+
+<footer>
+© 2026 TrustivaMarket. All Rights Reserved.
+</footer>
 
 <script>
+gsap.registerPlugin(ScrollTrigger);
 
-/* STARFIELD */
-const canvas = document.getElementById("space");
-const ctx = canvas.getContext("2d");
+/* SCRAMBLE EFFECT */
+function scrambleText(element, text) {
+const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let iteration=0;
 
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+const interval=setInterval(()=>{
+element.innerText=text
+.split("")
+.map((letter,index)=>{
+if(index<iteration){return text[index]}
+return letters[Math.floor(Math.random()*26)]
+})
+.join("");
 
-let stars=[];
-
-for(let i=0;i<600;i++){
-stars.push({
-x:(Math.random()-0.5)*canvas.width,
-y:(Math.random()-0.5)*canvas.height,
-z:Math.random()*canvas.width
-});
+if(iteration>=text.length){clearInterval(interval)}
+iteration+=1/2;
+},40);
 }
 
-function animate(){
-ctx.fillStyle="black";
-ctx.fillRect(0,0,canvas.width,canvas.height);
+scrambleText(document.getElementById("scramble"),"ACCESSING DIGITAL MARKETPLACE");
 
-stars.forEach(star=>{
-star.z -= 3;
-if(star.z<=0) star.z=canvas.width;
+/* DIAGONAL CINEMATIC ENTRY */
 
-let k=128/star.z;
-let x=star.x*k+canvas.width/2;
-let y=star.y*k+canvas.height/2;
-
-let size=(1-star.z/canvas.width)*4;
-ctx.fillRect(x,y,size,size);
+gsap.to(".ship-left",{
+x:700,
+y:-250,
+scale:1,
+rotate:0,
+opacity:1,
+duration:4.5,
+ease:"power4.out"
 });
 
-requestAnimationFrame(animate);
+gsap.to(".ship-right",{
+x:-700,
+y:250,
+scale:1,
+rotate:0,
+opacity:1,
+duration:4.5,
+delay:0.3,
+ease:"power4.out"
+});
+
+/* SUBTLE FLOAT */
+
+gsap.to(".ship-left",{
+y:"+=20",
+repeat:-1,
+yoyo:true,
+duration:5,
+ease:"sine.inOut"
+});
+
+gsap.to(".ship-right",{
+y:"-=20",
+repeat:-1,
+yoyo:true,
+duration:5,
+ease:"sine.inOut"
+});
+
+/* SCROLL FADE */
+
+gsap.utils.toArray("section").forEach(section=>{
+gsap.from(section,{
+opacity:0,
+y:80,
+duration:1.4,
+scrollTrigger:{
+trigger:section,
+start:"top 85%"
 }
-animate();
-
-/* SHIPS */
-gsap.fromTo("#shipLeft",
-{opacity:0,x:-800,y:300,scale:0.4},
-{opacity:1,x:0,y:0,scale:1,duration:5}
-);
-
-gsap.fromTo("#shipRight",
-{opacity:0,x:800,y:-300,scale:0.4},
-{opacity:1,x:0,y:0,scale:1,duration:5,delay:0.5}
-);
-
-/* FLOAT */
-gsap.to("#shipLeft",{y:20,repeat:-1,yoyo:true,duration:5});
-gsap.to("#shipRight",{y:-20,repeat:-1,yoyo:true,duration:5});
-
-/* CURSOR */
-document.addEventListener("mousemove",(e)=>{
-gsap.to("#cursorGlow",{x:e.clientX,y:e.clientY,duration:0.2});
 });
-
-/* INTRO */
-gsap.from("#headline",{opacity:0,y:40,duration:1.5});
-gsap.from("#subtitle",{opacity:0,duration:1,delay:0.5});
-gsap.from("#ctaBtn",{opacity:0,duration:1,delay:1});
-
-/* WARP */
-document.getElementById("ctaBtn").addEventListener("click",()=>{
-gsap.to("#warp",{opacity:1,duration:0.3});
-gsap.to(stars,{z:0,duration:1});
-gsap.to("#space",{scale:2,duration:1});
-gsap.to("body",{opacity:0,duration:1,delay:0.5});
 });
-
 </script>
 
 </body>
