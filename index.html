@@ -10,8 +10,7 @@
 
 <style>
 
-/* ================= RESET ================= */
-
+/* RESET */
 *{
   margin:0;
   padding:0;
@@ -25,52 +24,51 @@ body{
   color:#fff;
 }
 
-/* ================= HERO SECTION ================= */
-
+/* HERO BACKGROUND */
 .hero{
   position:relative;
-  height:100vh;
   width:100%;
-  background:url("space.jpg") center center / cover no-repeat;
+  height:100vh;
+  background:url('space.jpg') center center/cover no-repeat;
   display:flex;
   flex-direction:column;
   align-items:center;
 }
 
-/* Dark overlay */
+/* DARK OVERLAY */
 .hero::after{
-  content:"";
+  content:'';
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,0.55);
+  background:linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.85));
 }
 
-/* ================= LOGO ================= */
+/* HEADER */
+.header{
+  position:relative;
+  z-index:10;
+  padding-top:30px;
+  text-align:center;
+}
 
 .logo{
-  position:relative;
-  margin-top:40px;
   font-family:'Orbitron',sans-serif;
   font-size:34px;
-  letter-spacing:8px;
-  z-index:3;
+  letter-spacing:10px;
+  margin-bottom:25px;
 }
 
-/* ================= NAVIGATION ================= */
-
 .nav{
-  position:relative;
-  margin-top:20px;
   display:flex;
+  justify-content:center;
   gap:50px;
-  z-index:3;
+  font-size:13px;
+  letter-spacing:2px;
 }
 
 .nav a{
-  text-decoration:none;
   color:#ccc;
-  font-size:13px;
-  letter-spacing:2px;
+  text-decoration:none;
   transition:0.3s;
 }
 
@@ -78,139 +76,109 @@ body{
   color:#fff;
 }
 
-.nav .btn{
-  padding:8px 18px;
-  border:1px solid #fff;
-  border-radius:4px;
-}
-
-/* ================= CENTER CONTENT ================= */
-
-.center{
+/* HERO CONTENT */
+.hero-content{
   position:relative;
-  z-index:3;
+  z-index:5;
   text-align:center;
-  margin-top:auto;
-  margin-bottom:auto;
+  margin-top:120px;
+  max-width:900px;
   padding:0 20px;
 }
 
-.center small{
-  letter-spacing:4px;
-  font-size:12px;
-  opacity:0.7;
+.subheading{
+  font-size:13px;
+  letter-spacing:3px;
+  color:#aaa;
+  margin-bottom:20px;
 }
 
-.center h1{
-  font-size:56px;
+.hero-content h1{
+  font-size:48px;
   font-weight:300;
-  margin:20px 0;
+  margin-bottom:20px;
 }
 
-.center p{
-  font-size:18px;
-  opacity:0.8;
-  margin-bottom:30px;
+.hero-content p{
+  font-size:16px;
+  color:#ccc;
+  margin-bottom:35px;
 }
 
-.center button{
+.cta{
+  display:inline-block;
   padding:14px 32px;
   background:#fff;
   color:#000;
-  border:none;
-  font-weight:500;
+  font-size:13px;
   letter-spacing:2px;
-  cursor:pointer;
+  text-decoration:none;
   transition:0.3s;
 }
 
-.center button:hover{
+.cta:hover{
   background:#ddd;
 }
 
-/* ================= SHIPS ================= */
-
+/* SHIPS */
 .ship{
   position:absolute;
+  bottom:-150px;
   width:420px;
+  z-index:3;
   pointer-events:none;
-  z-index:2;
 }
 
-/* LEFT SHIP */
 .ship-left{
-  bottom:120px;
-  left:-500px;
-  transform:rotate(20deg);
-  animation:leftEnter 2.5s ease-out forwards;
+  left:-450px;
+  animation:shipLeftMove 3.5s ease-out forwards;
 }
 
-/* RIGHT SHIP */
 .ship-right{
-  bottom:120px;
-  right:-500px;
-  transform:rotate(-20deg);
-  animation:rightEnter 2.5s ease-out forwards;
+  right:-450px;
+  animation:shipRightMove 3.5s ease-out forwards;
 }
 
-@keyframes leftEnter{
-  from{
-    left:-500px;
-    transform:rotate(25deg);
+@keyframes shipLeftMove{
+  0%{
+    transform:translateX(0) translateY(0) rotate(0deg);
   }
-  to{
-    left:80px;
-    transform:rotate(12deg);
+  100%{
+    transform:translateX(550px) translateY(-120px) rotate(8deg);
   }
 }
 
-@keyframes rightEnter{
-  from{
-    right:-500px;
-    transform:rotate(-25deg);
+@keyframes shipRightMove{
+  0%{
+    transform:translateX(0) translateY(0) rotate(0deg);
   }
-  to{
-    right:80px;
-    transform:rotate(-12deg);
+  100%{
+    transform:translateX(-550px) translateY(-120px) rotate(-8deg);
   }
 }
 
-/* ================= RESPONSIVE ================= */
+/* RESPONSIVE */
+@media(max-width:768px){
 
-@media(max-width:900px){
-
-  .center h1{
-    font-size:36px;
-  }
-
-  .ship{
-    width:220px;
-  }
-
-  .ship-left{
-    bottom:50px;
-    left:-250px;
-  }
-
-  .ship-right{
-    bottom:50px;
-    right:-250px;
-  }
-
-  @keyframes leftEnter{
-    from{ left:-250px; }
-    to{ left:10px; }
-  }
-
-  @keyframes rightEnter{
-    from{ right:-250px; }
-    to{ right:10px; }
+  .hero-content h1{
+    font-size:32px;
   }
 
   .nav{
     flex-wrap:wrap;
     gap:20px;
-    justify-content:center;
+  }
+
+  .ship{
+    width:250px;
+  }
+
+  .ship-left{
+    left:-250px;
+  }
+
+  .ship-right{
+    right:-250px;
   }
 
 }
@@ -222,25 +190,26 @@ body{
 
 <section class="hero">
 
-  <div class="logo">TRUSTIVA</div>
-
-  <div class="nav">
-    <a href="#">BROWSE</a>
-    <a href="#">HOW IT WORKS</a>
-    <a href="#">SELLERS</a>
-    <a href="#">PRICING</a>
-    <a href="#">SIGN IN</a>
-    <a href="#" class="btn">LIST WEBSITE</a>
+  <div class="header">
+    <div class="logo">TRUSTIVA</div>
+    <div class="nav">
+      <a href="#">BROWSE</a>
+      <a href="#">HOW IT WORKS</a>
+      <a href="#">SELLERS</a>
+      <a href="#">PRICING</a>
+      <a href="#">SIGN IN</a>
+      <a href="#">LIST WEBSITE</a>
+    </div>
   </div>
 
-  <div class="center">
-    <small>ACCESSING DIGITAL MARKETPLACE</small>
+  <div class="hero-content">
+    <div class="subheading">ACCESSING DIGITAL MARKETPLACE</div>
     <h1>Buy & Sell Digital Businesses</h1>
     <p>AI-powered marketplace for verified revenue-generating online assets.</p>
-    <button>BROWSE LISTINGS</button>
+    <a href="#" class="cta">BROWSE LISTINGS</a>
   </div>
 
-  <!-- Ships -->
+  <!-- SHIPS -->
   <img src="ship-left.png" class="ship ship-left">
   <img src="ship-right.png" class="ship ship-right">
 
