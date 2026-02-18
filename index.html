@@ -4,173 +4,147 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trustiva Market</title>
+<title>Trustiva Market | Buy & Sell Digital Businesses</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
-/* RESET */
 *{margin:0;padding:0;box-sizing:border-box;}
-
 body{
-  font-family:'Inter',sans-serif;
-  background:#000;
-  color:#fff;
-  overflow-x:hidden;
+    font-family:'Inter',sans-serif;
+    background:#0b0f1a;
+    color:white;
+    overflow-x:hidden;
 }
 
-/* HERO */
-.hero{
-  position:relative;
-  height:100vh;
-  width:100%;
-  background:url("space.jpg") center center/cover no-repeat;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  animation:fadeInHero 1.2s ease forwards;
+/* Background */
+.background{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:url("assets/images/space-bg.jpg") center/cover no-repeat;
+    z-index:-2;
+}
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:rgba(0,0,0,0.7);
+    z-index:-1;
 }
 
-@keyframes fadeInHero{
-  from{opacity:0;}
-  to{opacity:1;}
-}
-
-/* Overlay */
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.85));
-}
-
-/* HEADER */
-.header{
-  position:relative;
-  z-index:5;
-  padding-top:40px;
-  text-align:center;
-}
-
-/* LOGO */
+/* Logo */
 .logo{
-  font-family:'Orbitron',sans-serif;
-  font-size:34px;
-  letter-spacing:10px;
-  margin-bottom:25px;
-  animation:logoGlow 4s ease-in-out infinite alternate;
+    text-align:center;
+    font-family:'Orbitron',sans-serif;
+    font-size:40px;
+    margin-top:30px;
+    letter-spacing:4px;
 }
 
-@keyframes logoGlow{
-  from{text-shadow:0 0 5px rgba(255,255,255,0.2);}
-  to{text-shadow:0 0 20px rgba(255,255,255,0.6);}
+/* Navbar */
+.navbar{
+    display:flex;
+    justify-content:center;
+    gap:45px;
+    margin-top:20px;
+}
+.navbar a{
+    text-decoration:none;
+    color:#ccc;
+    font-size:14px;
+    letter-spacing:2px;
+    transition:0.3s;
+}
+.navbar a:hover{
+    color:#00ffff;
 }
 
-/* NAV */
-.nav{
-  display:flex;
-  justify-content:center;
-  gap:50px;
-  font-size:13px;
-  letter-spacing:2px;
+/* Hero */
+.hero{
+    height:75vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+.hero h1{
+    font-size:44px;
+    margin-bottom:20px;
+}
+.hero p{
+    max-width:650px;
+    font-size:16px;
+    opacity:0.85;
+    line-height:1.6;
+}
+.hero-btn{
+    margin-top:35px;
+    padding:14px 40px;
+    border:1px solid #00ffff;
+    background:transparent;
+    color:#00ffff;
+    text-decoration:none;
+    letter-spacing:2px;
+    transition:0.3s;
+}
+.hero-btn:hover{
+    background:#00ffff;
+    color:#000;
 }
 
-.nav a{
-  color:#ccc;
-  text-decoration:none;
-  position:relative;
-  transition:0.3s;
+/* Sections */
+section{
+    padding:80px 10%;
+    background:#0b0f1a;
+}
+section h2{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:30px;
+}
+.section-content{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    line-height:1.7;
+    opacity:0.85;
 }
 
-.nav a:hover{
-  color:#fff;
+/* Grid */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:25px;
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:10px;
+    transition:0.3s;
+}
+.card:hover{
+    border-color:#00ffff;
+    transform:translateY(-5px);
 }
 
-/* Underline animation */
-.nav a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-6px;
-  width:0%;
-  height:1px;
-  background:#fff;
-  transition:0.3s;
-}
-
-.nav a:hover::after{
-  width:100%;
-}
-
-/* HERO CONTENT */
-.hero-content{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
-  text-align:center;
-  z-index:5;
-  width:90%;
-  max-width:900px;
-}
-
-.subheading{
-  font-size:13px;
-  letter-spacing:4px;
-  opacity:0.7;
-  margin-bottom:20px;
-}
-
-#hero-title{
-  font-size:56px;
-  font-weight:300;
-  margin-bottom:20px;
-}
-
-.description{
-  font-size:18px;
-  opacity:0.8;
-  margin-bottom:35px;
-}
-
-.cta{
-  display:inline-block;
-  padding:14px 32px;
-  background:#fff;
-  color:#000;
-  font-size:13px;
-  letter-spacing:2px;
-  text-decoration:none;
-  transition:0.3s;
-}
-
-.cta:hover{
-  background:#ddd;
-}
-
-/* Scroll Indicator */
-.scroll-indicator{
-  position:absolute;
-  bottom:30px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:12px;
-  letter-spacing:3px;
-  opacity:0.6;
-  animation:scrollBounce 1.5s infinite;
-  z-index:5;
-}
-
-@keyframes scrollBounce{
-  0%,100%{transform:translate(-50%,0);}
-  50%{transform:translate(-50%,8px);}
+/* Footer */
+footer{
+    padding:40px;
+    text-align:center;
+    background:#000;
+    font-size:14px;
+    opacity:0.7;
 }
 
 /* Responsive */
 @media(max-width:768px){
-  #hero-title{font-size:34px;}
-  .nav{flex-wrap:wrap;gap:20px;}
+    .hero h1{font-size:30px;}
+    .navbar{gap:20px;flex-wrap:wrap;}
 }
 
 </style>
@@ -178,79 +152,127 @@ body{
 
 <body>
 
-<section class="hero" id="hero">
+<div class="background"></div>
+<div class="overlay"></div>
 
-  <div class="header">
-    <div class="logo">TRUSTIVA</div>
+<div class="logo">TRUSTIVA</div>
 
-    <div class="nav">
-      <a href="#">BROWSE</a>
-      <a href="#">HOW IT WORKS</a>
-      <a href="#">SELLERS</a>
-      <a href="#">PRICING</a>
-      <a href="#">SIGN IN</a>
-      <a href="#">LIST WEBSITE</a>
-    </div>
-  </div>
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/browse">Browse</a>
+    <a href="#">Sell</a>
+    <a href="#">How It Works</a>
+    <a href="#">Pricing</a>
+    <a href="#">Contact</a>
+</div>
 
-  <div class="hero-content">
-    <div class="subheading">ACCESSING DIGITAL MARKETPLACE</div>
+<div class="hero">
+    <h1 id="scramble-text">Buy or Sell Websites in Minutes — Not Months.</h1>
+    <p>
+        Trustiva Market is the trusted marketplace where entrepreneurs trade verified,
+        revenue-generating digital businesses. Secure escrow. Transparent analytics.
+        Fast transfers.
+    </p>
+    <a href="/browse" class="hero-btn">Browse Listings</a>
+</div>
 
-    <h1 id="hero-title">
-      Buy & Sell Digital Businesses
-    </h1>
-
-    <div class="description">
-      AI-powered marketplace for verified revenue-generating online assets.
-    </div>
-
-    <a href="#" class="cta">BROWSE LISTINGS</a>
-  </div>
-
-  <div class="scroll-indicator">SCROLL ↓</div>
-
+<!-- About -->
+<section>
+<h2>Our Mission</h2>
+<div class="section-content">
+Trustiva Market exists to make digital asset ownership accessible, secure, and transparent. Whether you're acquiring a profitable SaaS startup or selling your e-commerce store, we protect every transaction and verify every listing.
+</div>
 </section>
 
+<!-- How It Works -->
+<section>
+<h2>How It Works</h2>
+<div class="grid">
+<div class="card">
+<h3>1. Discover</h3>
+<p>Browse verified websites across SaaS, E-commerce, and content niches.</p>
+</div>
+<div class="card">
+<h3>2. Evaluate</h3>
+<p>Access real revenue proof, traffic analytics, and seller history.</p>
+</div>
+<div class="card">
+<h3>3. Secure Purchase</h3>
+<p>Funds are protected via escrow until transfer is complete.</p>
+</div>
+<div class="card">
+<h3>4. Own & Scale</h3>
+<p>Receive full ownership and grow your new digital asset.</p>
+</div>
+</div>
+</section>
+
+<!-- Why Trustiva -->
+<section>
+<h2>Why Trustiva</h2>
+<div class="grid">
+<div class="card"><h3>Verified Listings</h3><p>No fake traffic or inflated numbers.</p></div>
+<div class="card"><h3>Escrow Protection</h3><p>Your funds are safe until ownership transfer.</p></div>
+<div class="card"><h3>Lowest Fees</h3><p>Keep more of your profit.</p></div>
+<div class="card"><h3>Global Marketplace</h3><p>Entrepreneurs from 50+ countries.</p></div>
+</div>
+</section>
+
+<!-- Stats -->
+<section>
+<h2>Marketplace Impact</h2>
+<div class="grid">
+<div class="card"><h3>12,000+</h3><p>Entrepreneurs</p></div>
+<div class="card"><h3>$4.2M+</h3><p>Transactions</p></div>
+<div class="card"><h3>99.2%</h3><p>Dispute Resolution</p></div>
+<div class="card"><h3>48 Hours</h3><p>Avg Transfer Time</p></div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section>
+<h2>Frequently Asked Questions</h2>
+<div class="grid">
+<div class="card"><h3>Are listings verified?</h3><p>Yes. Every listing undergoes traffic and revenue verification.</p></div>
+<div class="card"><h3>Is escrow secure?</h3><p>Funds remain protected until successful ownership transfer.</p></div>
+<div class="card"><h3>How long is transfer?</h3><p>Most transfers complete within 24–48 hours.</p></div>
+<div class="card"><h3>Can I negotiate price?</h3><p>Yes. Buyers and sellers can communicate securely.</p></div>
+</div>
+</section>
+
+<!-- Final CTA -->
+<section>
+<h2>Ready to Acquire Your Next Digital Asset?</h2>
+<div class="section-content">
+<a href="/browse" class="hero-btn">Explore Marketplace</a>
+</div>
+</section>
+
+<footer>
+© 2026 Trustiva Market. All Rights Reserved.
+</footer>
+
 <script>
-
-/* SCRAMBLE EFFECT */
-document.addEventListener("DOMContentLoaded", function(){
-
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-  const el = document.getElementById("hero-title");
-  const originalText = el.innerText;
-  let iteration = 0;
-
-  const interval = setInterval(() => {
-
-    el.innerText = originalText
-      .split("")
-      .map((letter, index) => {
-        if(index < iteration){
-          return originalText[index];
-        }
-        return letters[Math.floor(Math.random() * letters.length)];
-      })
-      .join("");
-
-    if(iteration >= originalText.length){
-      clearInterval(interval);
+const textElement = document.getElementById("scramble-text");
+const originalText = textElement.innerText;
+const chars = "!<>-_\\/[]{}—=+*^?#________";
+let frame = 0;
+function scramble(){
+    textElement.innerText = originalText
+        .split("")
+        .map((letter,index)=>{
+            if(index < frame){
+                return originalText[index];
+            }
+            return chars[Math.floor(Math.random()*chars.length)];
+        })
+        .join("");
+    if(frame <= originalText.length){
+        frame += 0.5;
+        requestAnimationFrame(scramble);
     }
-
-    iteration += 1/3;
-
-  }, 30);
-
-});
-
-/* Subtle Parallax */
-document.addEventListener("mousemove", function(e){
-  const hero = document.getElementById("hero");
-  const x = (e.clientX / window.innerWidth - 0.5) * 10;
-  const y = (e.clientY / window.innerHeight - 0.5) * 10;
-  hero.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
-});
-
+}
+scramble();
 </script>
 
 </body>
