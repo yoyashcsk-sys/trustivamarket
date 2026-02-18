@@ -13,23 +13,25 @@
   box-sizing:border-box;
 }
 
-body{
-  font-family: Arial, Helvetica, sans-serif;
-  background:black;
+html,body{
+  width:100%;
   overflow-x:hidden;
+  background:black;
+  font-family: Arial, Helvetica, sans-serif;
   color:white;
 }
 
-/* ================= BACKGROUND ================= */
+/* ================= HERO SECTION ================= */
 
 .hero{
   position:relative;
-  height:100vh;
   width:100%;
+  height:100vh;
   background:url("space.jpg") center center / cover no-repeat;
   display:flex;
   flex-direction:column;
   align-items:center;
+  overflow:hidden;
 }
 
 /* Dark cinematic overlay */
@@ -37,17 +39,18 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+  background:linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.4));
+  z-index:1;
 }
 
 /* ================= LOGO ================= */
 
 .logo{
   position:relative;
-  margin-top:25px;
-  font-size:32px;
-  letter-spacing:10px;
-  z-index:2;
+  margin-top:30px;
+  font-size:34px;
+  letter-spacing:14px;
+  z-index:3;
 }
 
 /* ================= NAVIGATION ================= */
@@ -56,16 +59,18 @@ body{
   position:relative;
   margin-top:20px;
   display:flex;
-  gap:40px;
-  z-index:2;
+  justify-content:center;
+  gap:45px;
   font-size:13px;
   letter-spacing:3px;
+  z-index:3;
+  flex-wrap:wrap;
 }
 
 .navbar a{
   color:white;
   text-decoration:none;
-  opacity:0.8;
+  opacity:0.75;
   transition:0.3s;
 }
 
@@ -78,34 +83,35 @@ body{
 .center-content{
   position:absolute;
   top:50%;
-  transform:translateY(-50%);
+  left:50%;
+  transform:translate(-50%, -50%);
   text-align:center;
-  z-index:2;
+  z-index:3;
   width:90%;
   max-width:900px;
 }
 
 .small-text{
   font-size:12px;
-  letter-spacing:4px;
-  opacity:0.7;
+  letter-spacing:5px;
+  opacity:0.6;
   margin-bottom:20px;
 }
 
 .main-title{
-  font-size:48px;
+  font-size:52px;
   font-weight:300;
   margin-bottom:20px;
 }
 
 .sub-text{
   font-size:16px;
-  opacity:0.8;
-  margin-bottom:30px;
+  opacity:0.85;
+  margin-bottom:35px;
 }
 
 .btn{
-  padding:14px 32px;
+  padding:14px 34px;
   background:white;
   color:black;
   text-decoration:none;
@@ -121,40 +127,46 @@ body{
 
 /* ================= SHIPS ================= */
 
-.ship-left,
-.ship-right{
+.ship{
   position:absolute;
-  width:420px;
+  width:450px;
+  z-index:2;
   opacity:0;
-  z-index:1;
+  pointer-events:none;
 }
 
-/* LEFT ship comes diagonally inward */
+/* LEFT SHIP - diagonal inward */
 .ship-left{
-  left:-450px;
-  bottom:80px;
-  transform:rotate(15deg);
-  animation:leftShip 2.5s ease-out forwards;
+  bottom:-250px;
+  left:-350px;
+  animation:leftEnter 2.5s ease-out forwards;
 }
 
-/* RIGHT ship comes diagonally inward */
+/* RIGHT SHIP - diagonal inward */
 .ship-right{
-  right:-450px;
-  bottom:80px;
-  transform:rotate(-15deg);
-  animation:rightShip 2.5s ease-out forwards;
+  bottom:-250px;
+  right:-350px;
+  animation:rightEnter 2.5s ease-out forwards;
 }
 
-@keyframes leftShip{
+@keyframes leftEnter{
+  from{
+    transform:translate(-350px, 300px) rotate(25deg);
+    opacity:0;
+  }
   to{
-    left:-60px;
+    transform:translate(80px, -60px) rotate(10deg);
     opacity:1;
   }
 }
 
-@keyframes rightShip{
+@keyframes rightEnter{
+  from{
+    transform:translate(350px, 300px) rotate(-25deg);
+    opacity:0;
+  }
   to{
-    right:-60px;
+    transform:translate(-80px, -60px) rotate(-10deg);
     opacity:1;
   }
 }
@@ -164,22 +176,34 @@ body{
 @media(max-width:900px){
 
   .main-title{
-    font-size:30px;
+    font-size:32px;
   }
 
-  .ship-left,
-  .ship-right{
-    width:250px;
+  .ship{
+    width:260px;
   }
 
-  .ship-left{
-    left:-260px;
+  @keyframes leftEnter{
+    from{
+      transform:translate(-250px,200px) rotate(25deg);
+      opacity:0;
+    }
+    to{
+      transform:translate(40px,-20px) rotate(10deg);
+      opacity:1;
+    }
   }
 
-  .ship-right{
-    right:-260px;
+  @keyframes rightEnter{
+    from{
+      transform:translate(250px,200px) rotate(-25deg);
+      opacity:0;
+    }
+    to{
+      transform:translate(-40px,-20px) rotate(-10deg);
+      opacity:1;
+    }
   }
-
 }
 </style>
 </head>
@@ -188,10 +212,8 @@ body{
 
 <section class="hero">
 
-  <!-- LOGO -->
   <div class="logo">TRUSTIVA</div>
 
-  <!-- NAVIGATION -->
   <div class="navbar">
     <a href="#">BROWSE</a>
     <a href="#">HOW IT WORKS</a>
@@ -201,7 +223,6 @@ body{
     <a href="#">LIST WEBSITE</a>
   </div>
 
-  <!-- CENTER CONTENT -->
   <div class="center-content">
     <div class="small-text">ACCESSING DIGITAL MARKETPLACE</div>
     <div class="main-title" id="scramble">
@@ -213,28 +234,27 @@ body{
     <a href="#" class="btn">BROWSE LISTINGS</a>
   </div>
 
-  <!-- SHIPS -->
-  <img src="ship-left.png" class="ship-left">
-  <img src="ship-right.png" class="ship-right">
+  <img src="ship-left.png" class="ship ship-left">
+  <img src="ship-right.png" class="ship ship-right">
 
 </section>
 
 <script>
-/* ================= SCRAMBLE EFFECT (EVE STYLE) ================= */
+/* CLEAN SCRAMBLE EFFECT */
 
 const el = document.getElementById("scramble");
 const originalText = el.textContent;
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 let iteration = 0;
 
-function scramble(){
+const interval = setInterval(() => {
   el.textContent = originalText
     .split("")
     .map((letter, index) => {
       if(index < iteration){
         return originalText[index];
       }
-      return letters[Math.floor(Math.random() * letters.length)];
+      return letters[Math.floor(Math.random()*letters.length)];
     })
     .join("");
 
@@ -243,9 +263,7 @@ function scramble(){
   }
 
   iteration += 0.5;
-}
-
-let interval = setInterval(scramble, 30);
+}, 30);
 </script>
 
 </body>
