@@ -7,6 +7,8 @@
 <title>Trustiva Market</title>
 
 <style>
+
+/* RESET */
 *{
 margin:0;
 padding:0;
@@ -14,27 +16,27 @@ box-sizing:border-box;
 }
 
 body{
-font-family: "Helvetica Neue", Arial, sans-serif;
+font-family:Arial, Helvetica, sans-serif;
 background:#000;
 color:#fff;
 overflow-x:hidden;
 }
 
-/* ===== Background ===== */
-
+/* HERO BACKGROUND */
 .hero{
 position:relative;
 height:100vh;
 width:100%;
-background:url("space.jpg") center center / cover no-repeat;
+background:url("space.jpg") center/cover no-repeat;
 display:flex;
 flex-direction:column;
-justify-content:center;
 align-items:center;
+justify-content:center;
 text-align:center;
 overflow:hidden;
 }
 
+/* DARK OVERLAY */
 .hero::after{
 content:"";
 position:absolute;
@@ -42,34 +44,38 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 70%);
+background:rgba(0,0,0,0.55);
 z-index:1;
 }
 
-/* ===== Navigation ===== */
+/* LOGO */
+.logo{
+position:absolute;
+top:30px;
+left:50%;
+transform:translateX(-50%);
+letter-spacing:6px;
+font-size:28px;
+font-weight:600;
+z-index:3;
+}
 
+/* NAVIGATION */
 .nav{
 position:absolute;
-top:0;
-width:100%;
+top:80px;
+left:50%;
+transform:translateX(-50%);
 display:flex;
-justify-content:space-between;
-align-items:center;
-padding:25px 60px;
-z-index:5;
+gap:40px;
+z-index:3;
 font-size:13px;
 letter-spacing:2px;
 }
 
-.nav-left,
-.nav-right{
-display:flex;
-gap:35px;
-}
-
 .nav a{
+color:#ddd;
 text-decoration:none;
-color:#ccc;
 transition:0.3s;
 }
 
@@ -77,192 +83,163 @@ transition:0.3s;
 color:#fff;
 }
 
-.logo{
-position:absolute;
-left:50%;
-transform:translateX(-50%);
-font-size:22px;
-letter-spacing:8px;
-font-weight:300;
-}
-
-/* ===== Ships ===== */
-
-.ship{
-position:absolute;
-width:420px;
-opacity:0;
-z-index:2;
-transition:transform 3s ease-out, opacity 2s ease-out;
-}
-
-.ship-left{
-left:-450px;
-top:20%;
-transform:rotate(-12deg);
-}
-
-.ship-right{
-right:-450px;
-top:55%;
-transform:rotate(12deg);
-}
-
-.ship.active-left{
-transform:translateX(500px) rotate(-12deg);
-opacity:1;
-}
-
-.ship.active-right{
-transform:translateX(-500px) rotate(12deg);
-opacity:1;
-}
-
-/* ===== Text Content ===== */
-
+/* CENTER CONTENT */
 .content{
 position:relative;
 z-index:3;
-max-width:1000px;
+max-width:900px;
 padding:0 20px;
 }
 
-.small{
-font-size:12px;
+.tagline{
 letter-spacing:4px;
-color:#aaa;
+font-size:12px;
+opacity:0.7;
 margin-bottom:20px;
 }
 
-.hero-title{
-font-size:64px;
-font-weight:200;
-letter-spacing:6px;
-line-height:1.2;
+h1{
+font-size:48px;
+font-weight:500;
+letter-spacing:1px;
 margin-bottom:20px;
 }
 
-.sub{
-font-size:16px;
-color:#bbb;
+.subtext{
+opacity:0.8;
 margin-bottom:30px;
 }
 
 .btn{
-padding:15px 40px;
+padding:14px 32px;
 background:#fff;
 color:#000;
-border:none;
+text-decoration:none;
 font-size:13px;
-letter-spacing:3px;
-cursor:pointer;
+letter-spacing:2px;
 transition:0.3s;
+display:inline-block;
 }
 
 .btn:hover{
 background:#ddd;
 }
 
-/* ===== Responsive ===== */
+/* SHIPS */
+.ship-left{
+position:absolute;
+left:-400px;
+top:50%;
+width:420px;
+transform:translateY(-50%) rotate(-12deg);
+animation:leftFly 3.5s ease forwards;
+z-index:2;
+}
 
-@media(max-width:900px){
-.hero-title{
-font-size:40px;
+.ship-right{
+position:absolute;
+right:-400px;
+top:55%;
+width:380px;
+transform:translateY(-50%) rotate(12deg);
+animation:rightFly 3.5s ease forwards;
+z-index:2;
 }
-.ship{
+
+@keyframes leftFly{
+to{
+left:-120px;
+}
+}
+
+@keyframes rightFly{
+to{
+right:-120px;
+}
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+h1{
+font-size:30px;
+}
+
+.nav{
+gap:15px;
+font-size:11px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.ship-left{
 width:250px;
+left:-250px;
+}
+
+.ship-right{
+width:250px;
+right:-250px;
 }
 }
+
 </style>
 </head>
+
 <body>
 
 <section class="hero">
 
-<!-- Navigation -->
+<div class="logo">TRUSTIVA</div>
+
 <div class="nav">
-<div class="nav-left">
 <a href="#">BROWSE</a>
 <a href="#">HOW IT WORKS</a>
 <a href="#">SELLERS</a>
 <a href="#">PRICING</a>
-</div>
-
-<div class="logo">TRUSTIVA</div>
-
-<div class="nav-right">
 <a href="#">SIGN IN</a>
 <a href="#">LIST WEBSITE</a>
 </div>
-</div>
 
-<!-- Ships -->
-<img src="shift-left.png" class="ship ship-left">
-<img src="shift-right.png" class="ship ship-right">
+<img src="shift-left.png" class="ship-left">
+<img src="shift-right.png" class="ship-right">
 
-<!-- Text -->
 <div class="content">
-<div class="small" id="scrambleSmall">ACCESSING DIGITAL MARKETPLACE</div>
-
-<div class="hero-title" id="scrambleTitle">
-BUY & SELL<br>DIGITAL BUSINESSES
-</div>
-
-<div class="sub">
+<div class="tagline">ACCESSING DIGITAL MARKETPLACE</div>
+<h1 id="mainText">Buy & Sell Digital Businesses</h1>
+<div class="subtext">
 AI-powered marketplace for verified revenue-generating online assets.
 </div>
-
-<button class="btn">BROWSE LISTINGS</button>
+<a href="#" class="btn">BROWSE LISTINGS</a>
 </div>
 
 </section>
 
 <script>
 
-/* ===== Ship Animation ===== */
-window.onload = function(){
-setTimeout(()=>{
-document.querySelector(".ship-left").classList.add("active-left");
-document.querySelector(".ship-right").classList.add("active-right");
-},500);
-}
+/* SCRAMBLE EFFECT */
+const text = "Buy & Sell Digital Businesses";
+const el = document.getElementById("mainText");
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let iteration = 0;
 
-/* ===== Scramble Effect ===== */
-
-function scrambleText(element, finalText, speed=40){
-let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-let iterations = 0;
-
-let interval = setInterval(() => {
-element.innerHTML = finalText
+const interval = setInterval(() => {
+el.innerText = text
 .split("")
-.map((letter, index)=>{
-if(index < iterations){
-return finalText[index];
+.map((letter, index) => {
+if(index < iteration){
+return text[index];
 }
-return chars[Math.floor(Math.random() * chars.length)];
+return letters[Math.floor(Math.random()*26)];
 })
 .join("");
 
-if(iterations >= finalText.length){
+if(iteration >= text.length){
 clearInterval(interval);
 }
 
-iterations += 1/2;
-}, speed);
-}
-
-scrambleText(
-document.getElementById("scrambleTitle"),
-"BUY & SELL\nDIGITAL BUSINESSES",
-30
-);
-
-scrambleText(
-document.getElementById("scrambleSmall"),
-"ACCESSING DIGITAL MARKETPLACE",
-40
-);
+iteration += 1/2;
+},30);
 
 </script>
 
