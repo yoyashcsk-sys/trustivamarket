@@ -15,28 +15,32 @@ body{
   font-family:Inter, sans-serif;
 }
 
-/* Background */
+/* Background Image */
 .background{
   position:fixed;
   width:100%;
   height:100vh;
-  background:url("space.jpg") center/cover no-repeat;
-  z-index:-2;
+  background:url("space-bg.jpg") center/cover no-repeat;
+  z-index:-3;
 }
 
+/* Dark Overlay for cinematic effect */
 .overlay{
   position:fixed;
   width:100%;
   height:100vh;
-  background:linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
-  z-index:-1;
+  background:radial-gradient(circle at center, rgba(0,0,0,0.2), rgba(0,0,0,0.85));
+  z-index:-2;
 }
 
 #globe-container{
   width:100%;
   height:100vh;
+  position:relative;
+  z-index:1;
 }
 
+/* Center Text */
 .overlay-text{
   position:absolute;
   top:50%;
@@ -92,14 +96,13 @@ document.getElementById("globe-container").appendChild(renderer.domElement);
 
 camera.position.z = 3;
 
-// Geometry
+// Globe geometry
 let geometry = new THREE.SphereGeometry(1, 64, 64);
 
 // Texture
 let textureLoader = new THREE.TextureLoader();
 let earthTexture = textureLoader.load("earth-night.jpg");
 
-// Material
 let material = new THREE.MeshStandardMaterial({
   map: earthTexture,
   roughness: 1,
@@ -117,18 +120,18 @@ scene.add(directionalLight);
 let ambientLight = new THREE.AmbientLight(0x222222);
 scene.add(ambientLight);
 
-// Auto rotation
+// Rotation speed
 let rotationSpeed = 0.0025;
 
-// Drag rotate
+// Drag rotation
 let isDragging = false;
 let previousMousePosition = {x:0,y:0};
 
-renderer.domElement.addEventListener("mousedown", function(e){
+renderer.domElement.addEventListener("mousedown", function(){
   isDragging = true;
 });
 
-renderer.domElement.addEventListener("mouseup", function(e){
+renderer.domElement.addEventListener("mouseup", function(){
   isDragging = false;
 });
 
@@ -149,21 +152,18 @@ renderer.domElement.addEventListener("mousemove", function(e){
   };
 });
 
-// Touch support
+// Mobile touch support
 renderer.domElement.addEventListener("touchmove", function(e){
   let touch = e.touches[0];
   earth.rotation.y += 0.005;
 });
 
-// Animate
+// Animation loop
 function animate(){
   requestAnimationFrame(animate);
-
   earth.rotation.y += rotationSpeed;
-
   renderer.render(scene, camera);
 }
-
 animate();
 
 // Resize
