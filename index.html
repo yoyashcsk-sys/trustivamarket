@@ -10,32 +10,34 @@
 
 <style>
 
-/* ================= RESET ================= */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  font-family:'Inter', sans-serif;
+  font-family:'Inter',sans-serif;
   background:#000;
   color:#fff;
   overflow-x:hidden;
 }
 
-/* ================= HERO BACKGROUND ================= */
+/* HERO */
 .hero{
   position:relative;
   height:100vh;
   width:100%;
-  background:url("space.jpg") center center / cover no-repeat;
+  background:url("space.jpg") center center/cover no-repeat;
   display:flex;
   flex-direction:column;
   align-items:center;
+  animation:fadeInHero 1.2s ease forwards;
 }
 
-/* Dark cinematic overlay */
+@keyframes fadeInHero{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* Overlay */
 .hero::after{
   content:"";
   position:absolute;
@@ -43,7 +45,7 @@ body{
   background:linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.85));
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 .header{
   position:relative;
   z-index:5;
@@ -51,13 +53,21 @@ body{
   text-align:center;
 }
 
+/* LOGO */
 .logo{
-  font-family:'Orbitron', sans-serif;
+  font-family:'Orbitron',sans-serif;
   font-size:34px;
   letter-spacing:10px;
   margin-bottom:25px;
+  animation:logoGlow 4s ease-in-out infinite alternate;
 }
 
+@keyframes logoGlow{
+  from{text-shadow:0 0 5px rgba(255,255,255,0.2);}
+  to{text-shadow:0 0 20px rgba(255,255,255,0.6);}
+}
+
+/* NAV */
 .nav{
   display:flex;
   justify-content:center;
@@ -69,6 +79,7 @@ body{
 .nav a{
   color:#ccc;
   text-decoration:none;
+  position:relative;
   transition:0.3s;
 }
 
@@ -76,7 +87,23 @@ body{
   color:#fff;
 }
 
-/* ================= HERO CONTENT ================= */
+/* Underline animation */
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0%;
+  height:1px;
+  background:#fff;
+  transition:0.3s;
+}
+
+.nav a:hover::after{
+  width:100%;
+}
+
+/* HERO CONTENT */
 .hero-content{
   position:absolute;
   top:50%;
@@ -122,18 +149,28 @@ body{
   background:#ddd;
 }
 
-/* ================= RESPONSIVE ================= */
+/* Scroll Indicator */
+.scroll-indicator{
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:12px;
+  letter-spacing:3px;
+  opacity:0.6;
+  animation:scrollBounce 1.5s infinite;
+  z-index:5;
+}
+
+@keyframes scrollBounce{
+  0%,100%{transform:translate(-50%,0);}
+  50%{transform:translate(-50%,8px);}
+}
+
+/* Responsive */
 @media(max-width:768px){
-
-  #hero-title{
-    font-size:34px;
-  }
-
-  .nav{
-    flex-wrap:wrap;
-    gap:20px;
-  }
-
+  #hero-title{font-size:34px;}
+  .nav{flex-wrap:wrap;gap:20px;}
 }
 
 </style>
@@ -141,7 +178,7 @@ body{
 
 <body>
 
-<section class="hero">
+<section class="hero" id="hero">
 
   <div class="header">
     <div class="logo">TRUSTIVA</div>
@@ -170,12 +207,13 @@ body{
     <a href="#" class="cta">BROWSE LISTINGS</a>
   </div>
 
+  <div class="scroll-indicator">SCROLL ↓</div>
+
 </section>
 
 <script>
 
-/* ================= SCRAMBLE EFFECT ================= */
-
+/* SCRAMBLE EFFECT */
 document.addEventListener("DOMContentLoaded", function(){
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -203,6 +241,14 @@ document.addEventListener("DOMContentLoaded", function(){
 
   }, 30);
 
+});
+
+/* Subtle Parallax */
+document.addEventListener("mousemove", function(e){
+  const hero = document.getElementById("hero");
+  const x = (e.clientX / window.innerWidth - 0.5) * 10;
+  const y = (e.clientY / window.innerHeight - 0.5) * 10;
+  hero.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
 });
 
 </script>
